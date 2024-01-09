@@ -52,7 +52,7 @@ type userInfo struct {
 
 func main() {
 	host := flag.String("h", "0.0.0.0", "host name or ip address")
-	port := flag.Int("p", 8080, "port")
+	port := flag.Int("p", 8088, "port")
 
 	flag.CommandLine.Parse(os.Args[1:])
 	separator = *sep

@@ -15,7 +15,7 @@ RUN go mod download \
 FROM alpine:3.10
 
 ENV HOST="0.0.0.0"
-ENV PORT="8080"
+ENV PORT="8088"
 
 # RUN apk add --no-cache ca-certificates
 
