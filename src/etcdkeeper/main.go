@@ -39,6 +39,9 @@ var (
 
 	sessmgr *session.Manager
 	mu      sync.Mutex
+
+	ename string
+	epwd  string
 )
 
 type userInfo struct {
@@ -581,7 +584,8 @@ func connect(w http.ResponseWriter, r *http.Request) {
 	host := r.FormValue("host")
 	uname := r.FormValue("uname")
 	passwd := r.FormValue("passwd")
-
+	ename = uname
+	epwd = passwd
 	if *useAuth {
 		if _, ok := rootUsers[host]; !ok && uname != "root" { // no root user
 			b, _ := json.Marshal(map[string]interface{}{"status": "root"})
@@ -993,10 +997,12 @@ func newClient(uinfo *userInfo) (*clientv3.Client, error) {
 		MaxCallSendMsgSize: *sendMsgSize,
 	}
 	if *useAuth {
-
+		conf.Username = uinfo.uname
+		conf.Password = uinfo.passwd
+	} else {
+		conf.Username = ename
+		conf.Password = epwd
 	}
-	conf.Username = "root"
-	conf.Password = "123456789"
 
 	var c *clientv3.Client
 	c, err = clientv3.New(conf)

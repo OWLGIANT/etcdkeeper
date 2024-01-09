@@ -268,11 +268,20 @@
 				connect();
 			}
 		}
+
+
 		
 		function connect() {
 			var status = 'ok';
 			var uname = $('#uname').textbox('getValue');
 			var passwd = $('#passwd').textbox('getValue');
+
+			// 使用prompt获取用户账号
+			uname= prompt("请输入您的账号:");
+
+			// 使用prompt获取用户密码
+			passwd = prompt("请输入您的密码:");
+
 			$.ajax({
 				type: 'POST',
 				timeout: timeout,
